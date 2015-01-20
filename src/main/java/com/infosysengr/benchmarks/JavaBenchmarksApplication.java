@@ -30,46 +30,12 @@ public class JavaBenchmarksApplication {
         List<String> strings = new LinkedList<>();
 
         IntStream randomInts = random.ints(10, 120)
-            .limit(100_000);
+            .limit(1_000_000);
 
         stopWatch.start();
         randomInts.mapToObj(new NameGenerator()).forEach((name) -> strings.add(name));
         stopWatch.stop();
+        System.out.println(stopWatch.timeForEvent("STOP"));
     }
 }
 
-class StopWatch {
-    private int maxNumTimes;
-    private long[] times;
-    private String[] eventNames;
-    private int lap;
-
-    public StopWatch() {
-        this(100);
-    }
-
-    public StopWatch(int maxNumTimes) {
-        this.maxNumTimes = maxNumTimes;
-        times = new long[maxNumTimes];
-        eventNames = new String[maxNumTimes];
-        lap = 0;
-    }
-
-    public void start() {
-        mark("StopWatch starts.");
-    }
-
-    public void lap(String eventName) {
-        mark(eventName);
-    }
-
-    public void stop() {
-        mark("StopWatch stops.");
-    }
-
-    private void mark(String eventName) {
-        times[lap] = System.currentTimeMillis();
-        eventNames[lap] = eventName;
-        lap++;
-    }
-}
