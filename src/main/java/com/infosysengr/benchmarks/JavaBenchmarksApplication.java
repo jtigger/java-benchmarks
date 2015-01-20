@@ -15,27 +15,7 @@ import java.util.stream.IntStream;
 @ComponentScan
 @EnableAutoConfiguration
 public class JavaBenchmarksApplication {
-    private static Random random = new Random(System.currentTimeMillis());
-
-    public static class NameGenerator implements IntFunction<String> {
-        @Override
-        public String apply(int value) {
-            return RandomStringUtils.randomAscii(value);
-        }
-    }
-
     public static void main(String[] args) {
-        StopWatch stopWatch = new StopWatch();
-
-        List<String> strings = new LinkedList<>();
-
-        IntStream randomInts = random.ints(10, 120)
-            .limit(1_000_000);
-
-        stopWatch.start();
-        randomInts.mapToObj(new NameGenerator()).forEach((name) -> strings.add(name));
-        stopWatch.stop();
-        System.out.println(stopWatch.timeForEvent("STOP"));
     }
 }
 
